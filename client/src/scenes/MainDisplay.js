@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // components
-import Card from '../components/Card'
+import ArtistDetailDisplay from './ArtistDetailDisplay'
+import ArtistGrid from './ArtistGrid'
 
 const MainDisplay = props => {
-  const { data } = props
+  const { artists } = props
+  const [selectedArtist, setselectedArtist] = useState()
 
-  console.log(data)
-  if (data.length === []) return 'hi'
-  // return <Card data={item} key={item.id} />
-  return data.map(item => <Card data={item} key={item.id} />)
+  const handleArtistSelected = target => {
+    setselectedArtist(target)
+  }
+
+  return selectedArtist ? (
+    <ArtistDetailDisplay artist={selectedArtist} />
+  ) : (
+    <ArtistGrid artists={artists} handleArtistSelected={handleArtistSelected} />
+  )
 }
 
 export default MainDisplay

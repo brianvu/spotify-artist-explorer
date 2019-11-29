@@ -1,51 +1,33 @@
 {
-  "artists": {
-    "href": "https://api.spotify.com/v1/search?query=Martin+Garrix&type=artist&offset=0&limit=20",
-    "items": [
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/60d24wfXkVzDSfLS6hyCjZ"
-        },
-        "followers": {
-          "href": null,
-          "total": 12048695
-        },
-        "genres": [
-          "big room",
-          "edm",
-          "pop",
-          "progressive house",
-          "tropical house"
-        ],
-        "href": "https://api.spotify.com/v1/artists/60d24wfXkVzDSfLS6hyCjZ",
-        "id": "60d24wfXkVzDSfLS6hyCjZ",
-        "images": [
-          {
-            "height": 640,
-            "url": "https://i.scdn.co/image/990f17c31b1cb4b4b2bc7b3d4780e2c9fd3a846a",
-            "width": 640
-          },
-          {
-            "height": 320,
-            "url": "https://i.scdn.co/image/80db1d349a07da1cdc4ef0ffa20deb08c4faa5e0",
-            "width": 320
-          },
-          {
-            "height": 160,
-            "url": "https://i.scdn.co/image/c0dc129d8a886a2c9bf487b826c3614a6630fb9c",
-            "width": 160
-          }
-        ],
-        "name": "Martin Garrix",
-        "popularity": 87,
-        "type": "artist",
-        "uri": "spotify:artist:60d24wfXkVzDSfLS6hyCjZ"
-      }
-    ],
-    "limit": 20,
-    "next": null,
-    "offset": 0,
-    "previous": null,
-    "total": 1
-  }
+  "external_urls": {
+    "spotify": "https://open.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+  },
+  "followers": {
+    "href": null,
+    "total": 7375177
+  },
+  "genres": ["dance pop", "latin", "miami hip hop", "pop", "pop rap"],
+  "href": "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg",
+  "id": "0TnOYISbd1XYRBk9myaseg",
+  "images": [
+    {
+      "height": 640,
+      "url": "https://i.scdn.co/image/1353990534aef10c946cf3a47865ac22471be5c4",
+      "width": 640
+    },
+    {
+      "height": 320,
+      "url": "https://i.scdn.co/image/f3a0aca9f85c6cdad37ebcc51a01879bf8c50af9",
+      "width": 320
+    },
+    {
+      "height": 160,
+      "url": "https://i.scdn.co/image/5ede30313c461d7ed0f5c4f3dea484fd349d49a9",
+      "width": 160
+    }
+  ],
+  "name": "Pitbull",
+  "popularity": 85,
+  "type": "artist",
+  "uri": "spotify:artist:0TnOYISbd1XYRBk9myaseg"
 }

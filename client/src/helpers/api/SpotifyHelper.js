@@ -4,7 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-js'
 import { sortDescending } from '../utilities'
 
 const accessToken =
-  'BQCmwHFib7mp9YPeCTRoC3DEOyX7fQ8_yeCOmtyssLAGxkUByLvhP8DcfZopMxY796Gba6LDkXtuXbfphcu8aiURTweea4PDV9BM1N523gFCF6-5QIs0BPJR4G8X8srkRwHqQOc83-T9_k_pRbBlRnohTflXwBWzwuZE_QhoKBuY4Q_Wb8sCNoT_UmwCq73CFRJ2hEXzejywxrAYNlCg5jD7aiGlLg4' ||
+  'BQDWT15Q2uuhBeUwU3mbTKqM2IVGpbaD9YT6ZUc2A9SR1vmyg2aYzViKCOO9D37jNtP3PbBFoBzSxJBbc0lMY8dPxAtxt1aZhFVGcBhCpY6VNptyuRaJVW-5apcNtGVntCwHrBMm6gqdK-I27VCcAssDajk3olmtl30hJC6EQmQlCz3kEaZITY9Z-E04pw-ZZgcBPZJYJxXre51_4o_IOf4fEWceJkQ' ||
   process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN
 
 export const searchArtists = async data => {
@@ -12,13 +12,31 @@ export const searchArtists = async data => {
   const spotify = new SpotifyWebApi()
   spotify.setAccessToken(accessToken)
 
-  const results = await spotify.searchArtists(artist)
-  const parsed = results.artists.items.map(x => parseArtist(x))
+  const response = await spotify.searchArtists(artist)
+  const parsed = response.artists.items.map(x => parseArtist(x))
   const filtered = parsed.filter(a => a.image)
   const sorted = filtered.sort((a, b) =>
     sortDescending(a.followers, b.followers)
   )
   return sorted
+}
+
+export const getArtist = async artistId => {
+  const spotify = new SpotifyWebApi()
+  spotify.setAccessToken(accessToken)
+
+  const response = await spotify.getArtist(artistId)
+  const parsed = parseArtist(response)
+  return parsed
+}
+
+export const getArtistTopTracks = async artistId => {
+  const spotify = new SpotifyWebApi()
+  spotify.setAccessToken(accessToken)
+
+  const response = await spotify.getArtistTopTracks(artistId)
+  const parsed = response.tracks.map(x => parseTrack(x))
+  return parsed
 }
 
 const parseArtist = resp => ({
@@ -30,4 +48,22 @@ const parseArtist = resp => ({
   genres: resp.genres,
   image: resp.images[0],
   uri: resp.uri,
+})
+
+const parseTrack = resp => ({
+  id: resp.id,
+  name: resp.name,
+  popularity: resp.popularity,
+  duration: resp.duration_ms,
+  previewUrl: resp.preview_url,
+  link: resp.external_urls.spotify,
+  isPlayable: resp.is_playable,
+  artists: resp.artists,
+  album: {
+    id: resp.album.id,
+    name: resp.album.name,
+    releaseDate: resp.album.release_date,
+    image: resp.album.images[0],
+    link: resp.album.external_urls.spotify,
+  },
 })

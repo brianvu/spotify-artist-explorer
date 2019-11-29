@@ -5,7 +5,6 @@ import SearchForm from './scenes/SearchForm'
 import SidePanel from './components/SidePanel'
 import MainPanel from './components/MainPanel'
 import MainDisplay from './scenes/MainDisplay'
-import CuteDisplay from './scenes/CuteDisplay'
 
 // styles
 import { searchArtists } from './helpers/api/SpotifyHelper'
@@ -41,7 +40,7 @@ const App = () => {
         <SearchForm handleSearch={handleSearch} />
       </SidePanel>
       <MainPanel>
-        <MainDisplay data={artistSearchResults} />
+        <MainDisplay artists={artistSearchResults} />
         {/* <CuteDisplay /> */}
       </MainPanel>
     </div>

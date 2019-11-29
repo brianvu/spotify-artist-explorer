@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { animated, useSpring, config } from 'react-spring'
 
@@ -80,8 +80,8 @@ const StyledCardLabel = styled.label`
   }
 `
 
-const Card = ({ data }) => {
-  const { name, followers, link, genres, image } = data
+const Card = ({ data, handleArtistSelected }) => {
+  const { name, followers, genres, image } = data
 
   const animatedProps = useSpring({
     opacity: 1,
@@ -89,53 +89,10 @@ const Card = ({ data }) => {
     config: config.slow,
   })
 
-  // const [animatedProps, setAnimatedProps] = useSpring(() => {
-  //   return {
-  //     xys: [0, 0, 1],
-  //     config: { mass: 5, tension: 500, friction: 40 },
-  //   }
-  // })
-
   return (
     <StyledCard
       style={animatedProps}
-      // style={{
-      //   ...fadeIn,
-      //   zIndex: hovered ? 2 : 1,
-      //   transform: animatedProps.xys.interpolate(
-      //     (x, y, s) =>
-      //       `perspective(200px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
-      //   ),
-      // }}
-      // onMouseEnter={() => setHovered(true)}
-      // onMouseMove={({ clientX, clientY }) => {
-      //   // Get mouse x position within card
-      //   const x =
-      //     clientX -
-      //     (ref.current.offsetLeft -
-      //       (window.scrollX || window.pageXOffset || document.body.scrollLeft))
-
-      //   // Get mouse y position within card
-      //   const y =
-      //     clientY -
-      //     (ref.current.offsetTop -
-      //       (window.scrollY || window.pageYOffset || document.body.scrollTop))
-
-      //   // Set animated values based on mouse position and card dimensions
-      //   const dampen = 10 // Lower the number the less rotation
-      //   const xys = [
-      //     -(y - ref.current.clientHeight / 2) / dampen, // rotateX
-      //     (x - ref.current.clientWidth / 2) / dampen, // rotateY
-      //     1.07, // Scale
-      //   ]
-
-      //   // Update values to animate to
-      //   setAnimatedProps({ xys: xys })
-      // }}
-      // onMouseLeave={() => {
-      //   setHovered(false)
-      //   setAnimatedProps({ xys: [0, 0, 1] })
-      // }}
+      onClick={() => handleArtistSelected(data)}
     >
       {image && <StyledCardImage src={image.url} />}
       <StyledCardDescription>
