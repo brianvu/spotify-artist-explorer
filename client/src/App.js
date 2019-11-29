@@ -1,17 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 
 // components
-import InputForm from "./scenes/InputForm";
+import SearchForm from './scenes/SearchForm'
+import SidePanel from './components/SidePanel'
+import MainPanel from './components/MainPanel'
+import MainDisplay from './scenes/MainDisplay'
+import CuteDisplay from './scenes/CuteDisplay'
 
 // styles
-import baseStyles from "./styles/styles";
+import { searchArtists } from './helpers/api/SpotifyHelper'
 
-function App() {
-  return (
-    <div className="App">
-      <InputForm />
-    </div>
-  );
+const styles = {
+  app: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: '100vh',
+  },
 }
 
-export default App;
+const App = () => {
+  const [artistSearchResults, setArtistSearchResults] = useState([])
+
+  useEffect(() => {
+    const load = () => {
+      const cached = JSON.parse(sessionStorage.getItem('artist-search'))
+      if (cached) setArtistSearchResults(cached)
+    }
+    load()
+  }, [])
+
+  const handleSearch = async searchTerm => {
+    const response = await searchArtists(searchTerm)
+    setArtistSearchResults(response)
+    sessionStorage.setItem('artist-search', JSON.stringify(response))
+  }
+
+  return (
+    <div style={styles.app}>
+      <SidePanel>
+        <SearchForm handleSearch={handleSearch} />
+      </SidePanel>
+      <MainPanel>
+        <MainDisplay data={artistSearchResults} />
+        {/* <CuteDisplay /> */}
+      </MainPanel>
+    </div>
+  )
+}
+
+export default App

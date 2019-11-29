@@ -4,9 +4,9 @@ export const fontSizes = {
   medium: 14,
   large: 16,
   xlarge: 18,
-  xxlarge: 20
-};
+  xxlarge: 20,
+}
 
 export const baseStyles = {
-  fontSizes: fontSizes.medium
-};
+  fontSizes: fontSizes.medium,
+}
