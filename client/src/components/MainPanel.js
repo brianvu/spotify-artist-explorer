@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledMainPanel = styled.div`
   display: flex;
@@ -14,3 +15,7 @@ const MainPanel = ({ children }) => {
 }
 
 export default MainPanel
+
+MainPanel.propTypes = {
+  children: PropTypes.any,
+}

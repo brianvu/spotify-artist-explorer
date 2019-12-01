@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const StyledInput = styled.input`
   height: 2em;
@@ -8,13 +9,13 @@ const StyledInput = styled.input`
 `
 
 const Input = React.forwardRef((props, ref) => {
-  return (
-    <StyledInput
-      name={props.name}
-      defaultValue={props.defaultValue}
-      ref={ref}
-    />
-  )
+  const { name, defaultValue } = props
+  return <StyledInput name={name} defaultValue={defaultValue} ref={ref} />
 })
 
 export default Input
+
+Input.propTypes = {
+  name: PropTypes.string,
+  defaultValue: PropTypes.string,
+}

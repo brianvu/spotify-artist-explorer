@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 // components
 import SearchForm from './scenes/SearchForm'
 import SidePanel from './components/SidePanel'
 import MainPanel from './components/MainPanel'
 import MainDisplay from './scenes/MainDisplay'
+import LoginDisplay from './scenes/login/LoginDisplay'
 
-// styles
+// context
+import { SpotifyContext } from './context/SpotifyContext'
+
+// helpers
 import { searchArtists } from './helpers/api/SpotifyHelper'
 
+// styles
 const styles = {
   app: {
     display: 'flex',
@@ -19,22 +24,26 @@ const styles = {
 
 const App = () => {
   const [artistSearchResults, setArtistSearchResults] = useState([])
+  const { spotify, isTokenValid } = useContext(SpotifyContext)
 
   useEffect(() => {
-    const load = () => {
-      const cached = JSON.parse(sessionStorage.getItem('artist-search'))
+    const initialize = () => {
+      // get last cached results
+      const cached = JSON.parse(sessionStorage.getItem('search-results'))
       if (cached) setArtistSearchResults(cached)
     }
-    load()
+
+    initialize()
   }, [])
 
-  const handleSearch = async searchTerm => {
-    const response = await searchArtists(searchTerm)
+  const handleSearch = async ({ searchArtist }) => {
+    const response = await searchArtists(spotify, searchArtist)
     setArtistSearchResults(response)
-    sessionStorage.setItem('artist-search', JSON.stringify(response))
+    sessionStorage.setItem('search', searchArtist)
+    sessionStorage.setItem('search-results', JSON.stringify(response))
   }
 
-  return (
+  return isTokenValid() ? (
     <div style={styles.app}>
       <SidePanel>
         <SearchForm handleSearch={handleSearch} />
@@ -44,6 +53,8 @@ const App = () => {
         {/* <CuteDisplay /> */}
       </MainPanel>
     </div>
+  ) : (
+    <LoginDisplay />
   )
 }
 

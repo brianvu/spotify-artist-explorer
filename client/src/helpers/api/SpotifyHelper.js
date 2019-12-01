@@ -1,18 +1,18 @@
-import SpotifyWebApi from 'spotify-web-api-js'
-
 // helpers
 import { sortDescending } from '../utilities'
 
-const accessToken =
-  'BQDWT15Q2uuhBeUwU3mbTKqM2IVGpbaD9YT6ZUc2A9SR1vmyg2aYzViKCOO9D37jNtP3PbBFoBzSxJBbc0lMY8dPxAtxt1aZhFVGcBhCpY6VNptyuRaJVW-5apcNtGVntCwHrBMm6gqdK-I27VCcAssDajk3olmtl30hJC6EQmQlCz3kEaZITY9Z-E04pw-ZZgcBPZJYJxXre51_4o_IOf4fEWceJkQ' ||
-  process.env.REACT_APP_SPOTIFY_ACCESS_TOKEN
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID
 
-export const searchArtists = async data => {
-  const { artist } = data
-  const spotify = new SpotifyWebApi()
-  spotify.setAccessToken(accessToken)
+const redirectUri = `${window.location.origin}/callback`
 
-  const response = await spotify.searchArtists(artist)
+export const Endpoints = {
+  Spotify: {
+    ImplicitGrant: 'https://accounts.spotify.com/authorize',
+  },
+}
+
+export const searchArtists = async (spotify, searchArtist) => {
+  const response = await spotify.searchArtists(searchArtist)
   const parsed = response.artists.items.map(x => parseArtist(x))
   const filtered = parsed.filter(a => a.image)
   const sorted = filtered.sort((a, b) =>
@@ -21,24 +21,23 @@ export const searchArtists = async data => {
   return sorted
 }
 
-export const getArtist = async artistId => {
-  const spotify = new SpotifyWebApi()
-  spotify.setAccessToken(accessToken)
-
-  const response = await spotify.getArtist(artistId)
+export const getArtist = async (spotify, artistId) => {
+  const response = spotify.getArtist(artistId)
   const parsed = parseArtist(response)
   return parsed
 }
 
-export const getArtistTopTracks = async artistId => {
-  const spotify = new SpotifyWebApi()
-  spotify.setAccessToken(accessToken)
-
-  const response = await spotify.getArtistTopTracks(artistId)
+export const getArtistTopTracks = async (spotify, artistId, countryId) => {
+  const response = await spotify.getArtistTopTracks(artistId, countryId)
   const parsed = response.tracks.map(x => parseTrack(x))
   return parsed
 }
 
+export const getRedirectUrl = () => {
+  return `${Endpoints.Spotify.ImplicitGrant}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token`
+}
+
+// parsers
 const parseArtist = resp => ({
   id: resp.id,
   name: resp.name,
