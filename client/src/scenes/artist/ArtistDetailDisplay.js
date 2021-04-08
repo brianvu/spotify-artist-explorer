@@ -38,7 +38,6 @@ const styles = {
 const ArtistDetailDisplay = props => {
   const { artist, handleArtistDeselected } = props
   const { id, image, name } = artist
-  debugger
 
   const [topTracks, setTopTracks] = useState()
 
@@ -52,7 +51,7 @@ const ArtistDetailDisplay = props => {
       }
     }
     getTopTracks()
-  }, [id])
+  }, [id, spotify])
 
   return (
     <div style={styles.detailPanel}>
@@ -61,7 +60,7 @@ const ArtistDetailDisplay = props => {
         <AvatarImage src={image.url} />
         <h1>{name}</h1>
       </div>
-      {/* <TopTracksDisplay tracks={topTracks} /> */}
+      <TopTracksDisplay tracks={topTracks} />
     </div>
   )
 }

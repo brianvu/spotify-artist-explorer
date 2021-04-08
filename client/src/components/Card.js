@@ -110,9 +110,9 @@ export default Card
 Card.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
-    followers: PropTypes.string,
+    followers: PropTypes.number,
     genres: PropTypes.array,
-    image: PropTypes.string,
+    image: PropTypes.object,
   }),
   handleArtistSelected: PropTypes.func,
 }

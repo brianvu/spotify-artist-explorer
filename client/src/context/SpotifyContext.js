@@ -30,7 +30,7 @@ const SpotifyProvider = ({ children }) => {
       setSpotify(spotifyWebApi)
     }
     initialize()
-  }, [])
+  }, [tokenInfo])
 
   const isTokenValid = () => {
     return validateToken(tokenInfo)

@@ -2,15 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // hooks
-import useForm from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 // components
 import Label from '../components/Label'
-import Input from '../components/Input'
 
 const SearchForm = props => {
   const { handleSearch } = props
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, watch } = useForm()
 
   const onSubmit = searchTerm => handleSearch(searchTerm)
 
@@ -20,9 +19,7 @@ const SearchForm = props => {
     // include validation with required or other standard HTML validation rules
     <form onSubmit={handleSubmit(onSubmit)}>
       <Label>Artist</Label>
-      <Input name="searchArtist" ref={register({ required: true })} />
-      {/* errors will return when field validation fails */}
-      {errors.artist && <span>This field is required.</span>}
+      <input {...register("searchArtist")} />
       <input type="submit" value="Search" />
     </form>
   )

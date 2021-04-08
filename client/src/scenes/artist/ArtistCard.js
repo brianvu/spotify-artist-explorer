@@ -12,6 +12,6 @@ export const ArtistCard = props => {
 export default ArtistCard
 
 ArtistCard.propTypes = {
-  artist: PropTypes.array,
+  artist: PropTypes.object,
   handleArtistSelected: PropTypes.func,
 }
